@@ -169,11 +169,11 @@ class SilverBot(commands.Bot):
         self.server = await coro
 
         for pending in self.incoming_pending_friends:
-            epic_friend = await pending.accept()
+            epic_friend = await pending.dennied()
             if isinstance(epic_friend, fortnitepy.Friend):
-                print(f"Accepted friend request from: {epic_friend.display_name}.")
+                print(f"Declined friend request from: {epic_friend.display_name}.")
             else:
-                print(f"Accepted friend request from: {pending.display_name}.")
+                print(f"Declined friend request from: {pending.display_name}.")
 
     async def event_party_invite(self, invite: fortnitepy.ReceivedPartyInvitation) -> None:
         await invite.accept()
@@ -182,8 +182,8 @@ class SilverBot(commands.Bot):
     async def event_friend_request(self, request: fortnitepy.IncomingPendingFriend) -> None:
         print(f"Received friend request from: {request.display_name}.")
 
-        await request.accept()
-        print(f"Accepted friend request from: {request.display_name}.")
+        await request.dennied()
+        print(f"Declined friend request from: {request.display_name}.")
 
     async def event_party_member_join(self, member: fortnitepy.PartyMember) -> None:
         await self.party.send(self.welcome_message.replace('{DISPLAY_NAME}', member.display_name))
